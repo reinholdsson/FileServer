@@ -5,25 +5,20 @@
 `config.yml`
 
 ```
-query:
-  id: comments
-  method: pm_query.r
-    server: pedal
-    port: 8080
-    template: sql/get_comments.sql
-  input: 
-    period: ...
-    processid: ...
+comments:
+  file: sql/get_comments.sql
+  server: pedal
+  port: 8080
 ```
 
 start service
 
 ```
-file_service("config.yml")
+file_server("config.yml")
 ```
 
 go to the url
 ```
-localhost/?q=comments&period=201301&processid=1;2&format=xlsx
+http://localhost:8100/?q=comments&top=10
 ```
 

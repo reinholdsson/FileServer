@@ -1,0 +1,4 @@
+comments:
+  file: sql/get_comments.sql
+  server: pedal
+  port: 8080
