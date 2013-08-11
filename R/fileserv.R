@@ -1,4 +1,10 @@
-file_server <- function(config) {
+#' Start file server
+#' 
+#' ...
+#' 
+#' @param config config file path
+#' @export
+fileserv <- function(config) {
   
   # check input file
   if (missing(config) || is.null(config)) {

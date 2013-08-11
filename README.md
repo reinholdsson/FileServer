@@ -16,7 +16,7 @@ comments:
 start service
 
 ```
-file_server("config.yml")
+file_service("config.yml")
 ```
 
 go to the url
