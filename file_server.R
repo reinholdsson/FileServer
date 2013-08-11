@@ -21,7 +21,10 @@ file_server <- function(config) {
           
           # get url query
           query <- parseQueryString(session$clientData$url_search)
-          query <- sapply(query, function(x) strsplit(x, ";"))
+          
+#         query <- sapply(query, function(x) {
+#           strsplit(x, ";")
+#         })
           
           # get local config
           conf <- yaml.load_file(config)
