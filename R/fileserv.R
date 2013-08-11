@@ -19,11 +19,48 @@ fileserv <- function(config) {
         verbatimTextOutput("urlText"),
        
         h3("Parsed query string"),
-        verbatimTextOutput("queryText")
+        verbatimTextOutput("queryText"),
+        
+        h3("Download data"),
+        downloadButton("csv", "csv"),
+        downloadButton("xlsx", "xlsx")
       ),
       
       server = function(input, output, session) {
-        get_sql <- reactive({
+        
+        output$csv <- downloadHandler(
+          filename = 'test.csv',
+          content = function(con) {
+            write.csv2(data(), con)
+          }
+        )
+        
+        output$xlsx <- downloadHandler(
+          filename = 'test.xlsx',
+          content = function(con) {
+            temp <- paste0(tempfile(), ".xlsx")
+            on.exit(unlink(temp))
+            
+            wb <- loadWorkbook(temp, create = TRUE)
+            createSheet(wb, name = "output")
+            writeWorksheet(wb, data(), sheet = "output")
+            saveWorkbook(wb)
+            
+            bytes <- readBin(temp, "raw", file.info(temp)$size)
+            writeBin(bytes, con)
+          }
+        )
+        
+        data <- reactive({
+          print(paste("Get data with query:", sql()))
+          
+          # TODO: GET DATA FROM DATABASE
+          data <- MASS::survey  # temp
+          
+          return(data)
+        })
+        
+        sql <- reactive({
           
           # get url query
           query <- parseQueryString(session$clientData$url_search)
@@ -41,23 +78,16 @@ fileserv <- function(config) {
           sql <- whisker.render(sql, query)
           
           return(sql)
-        })
+      })
        
         # Return the components of the URL in a string:
         output$urlText <- renderText({
-          paste(sep = "",
-            "protocol: ", session$clientData$url_protocol, "\n",
-            "hostname: ", session$clientData$url_hostname, "\n",
-            "pathname: ", session$clientData$url_pathname, "\n",
-            "port: ",     session$clientData$url_port,     "\n",
-            "search: ",   session$clientData$url_search,   "\n"
-          )
+          session$clientData$url_search
         })
        
         # Parse the GET query string
         output$queryText <- renderText({
-          str <- get_sql()
-          print(str)
+          str <- sql()
           paste(str)
         })
       }

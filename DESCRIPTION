@@ -11,6 +11,7 @@ Depends:
     RODBC,
     yaml,
     shiny,
-    whisker
+    whisker,
+    XLConnect
 Collate:
     'fileserv.R'
