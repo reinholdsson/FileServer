@@ -24,6 +24,8 @@ go to the url
 http://localhost:8100/?q=comments&top=10
 http://localhost:8100/?q=comments&top=10&process=1,3
 http://localhost:8100/?q=comments&top=10&process='ÅP','BT','PP'
+
+http://localhost:8100/?q=answers&process=5,6,7
 ```
 
 # TODO

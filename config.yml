@@ -2,3 +2,7 @@ comments:
   file: sql/get_comments.sql
   server: pedal
   port: 8080
+answers:
+  file: sql/get_answers.sql
+  server: pedal
+  port: 8080
