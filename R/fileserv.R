@@ -1,5 +1,3 @@
-#read_yml <- paste(readLines(cfg()$file, warn = F), collapse = "\n")
-
 #' Start file server
 #' 
 #' ...
@@ -64,7 +62,6 @@ fileserv <- function(config) {
             on.exit(unlink(temp_file))
             code <- paste(readLines(cfg()$file, warn = F), collapse = "\n")
             eval(parse(text = code))(input = input, output = temp_file)
-            
             bytes <- readBin(temp_file, "raw", file.info(temp_file)$size)
             writeBin(bytes, con)
           }
