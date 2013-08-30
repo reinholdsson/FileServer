@@ -5,7 +5,6 @@ plot chart:
 mtcars dataset:
   file: functions/mtcars.r
   output: mtcars.xlsx
-  form: forms/plot.yml
 survey dataset:
   file: functions/survey.r
   output: survey.xlsx

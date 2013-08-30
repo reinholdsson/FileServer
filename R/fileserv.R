@@ -24,7 +24,7 @@ fileserv <- function(config) {
           choices = names(conf)
         ),
         uiOutput("form"),
-        downloadButton("download", "Download data")
+        downloadButton("download", "Run")
       ),
       
       server = function(input, output, session) {
@@ -47,7 +47,7 @@ fileserv <- function(config) {
             temp_file <- paste(tempfile(), cfg()$output, sep = "_")
             on.exit(unlink(temp_file))
             code <- paste(readLines(cfg()$file, warn = F), collapse = "\n")
-            eval(parse(text = code))(temp_file)
+            eval(parse(text = code))(input = input, output = temp_file)
             
             bytes <- readBin(temp_file, "raw", file.info(temp_file)$size)
             writeBin(bytes, con)

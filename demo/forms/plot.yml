@@ -1,14 +1,9 @@
-id: 1.0
-title: MyForm
 inputs:
-- label: Question 1
+- inputId: title
+  label: Main title
   choices:
-  - "Yes"
-  - "No"
-  - "Maybe"
-  - Perhaps
-- label: Question 2
-  choices:
-  - "Yes"
-  - "No"
-- label: Question 3
+  - Plot 1
+  - Plot 2
+  - Plot 3
+- inputId: title
+  label: Sub title

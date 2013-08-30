@@ -10,6 +10,7 @@
 plot chart:
   file: functions/plot.r
   output: plot.pdf
+  form: forms/plot.yml
 mtcars dataset:
   file: functions/mtcars.r
   output: mtcars.xlsx
