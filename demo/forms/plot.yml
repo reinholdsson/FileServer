@@ -5,5 +5,5 @@ inputs:
   - Plot 1
   - Plot 2
   - Plot 3
-- inputId: title
+- inputId: subtitle
   label: Sub title

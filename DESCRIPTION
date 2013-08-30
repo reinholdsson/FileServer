@@ -8,11 +8,8 @@ Maintainer: Thomas Reinholdsson <reinholdsson@gmail.com>
 Description: ...
 License: GPLv3
 Depends:
-    RODBC,
     yaml,
-    shiny,
-    whisker,
-    XLConnect
+    shiny
 Collate:
     'fileserv.R'
     'form.R'

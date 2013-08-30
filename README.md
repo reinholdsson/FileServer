@@ -1,4 +1,4 @@
-# R File Service
+# R File Server
 
 **EXPERIMENTAL**
 
@@ -25,3 +25,7 @@ start service
 library(fileserv)
 fileserv("config.yml")
 ```
+
+## See also
+
+- [FastRWeb](http://www.rforge.net/FastRWeb/)

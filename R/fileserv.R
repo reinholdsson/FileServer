@@ -7,6 +7,10 @@
 #' @param config config file path
 #' @export
 fileserv <- function(config) {
+  # change work dir until exit
+  wd <- getwd()
+  setwd(dirname(config))
+  on.exit(setwd(wd))
   
   # check input file
   if (missing(config) || is.null(config)) {
