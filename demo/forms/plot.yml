@@ -1,0 +1,14 @@
+id: 1.0
+title: MyForm
+inputs:
+- label: Question 1
+  choices:
+  - "Yes"
+  - "No"
+  - "Maybe"
+  - Perhaps
+- label: Question 2
+  choices:
+  - "Yes"
+  - "No"
+- label: Question 3

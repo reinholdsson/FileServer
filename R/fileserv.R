@@ -1,9 +1,4 @@
-# get_ext <- function(str) {
-#   x <- str_extract_all(str, "\\[(\\w*)\\]")
-#   x <- gsub("\\[", "", x)
-#   x <- gsub("\\]", "", x)
-#   return(x)
-# }
+#read_yml <- paste(readLines(cfg()$file, warn = F), collapse = "\n")
 
 #' Start file server
 #' 
@@ -28,12 +23,22 @@ fileserv <- function(config) {
           label = "Query:",
           choices = names(conf)
         ),
+        uiOutput("form"),
         downloadButton("download", "Download data")
       ),
       
       server = function(input, output, session) {
         cfg <- reactive({
           conf[[input$query]]
+        })
+        
+        output$form <- renderUI({
+          form <- cfg()$form
+          if (!is.null(form)) {
+            buildForm(yaml.load_file(form))
+          } else {
+            p("No form available")
+          }
         })
         
         output$download <- downloadHandler(

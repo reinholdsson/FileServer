@@ -15,3 +15,4 @@ Depends:
     XLConnect
 Collate:
     'fileserv.R'
+    'form.R'
