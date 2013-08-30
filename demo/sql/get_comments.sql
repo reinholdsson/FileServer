@@ -1,1 +1,0 @@
-SELECT TOP {{top}} * FROM TABLE

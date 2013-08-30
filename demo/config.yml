@@ -1,8 +1,9 @@
-comments:
-  file: sql/get_comments.sql
-  server: pedal
-  port: 8080
-answers:
-  file: sql/get_answers.sql
-  server: pedal
-  port: 8080
+plot chart:
+  file: functions/plot.r
+  output: plot.pdf
+mtcars dataset:
+  file: functions/mtcars.r
+  output: mtcars.xlsx
+survey dataset:
+  file: functions/survey.r
+  output: survey.xlsx

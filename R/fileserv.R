@@ -1,3 +1,10 @@
+# get_ext <- function(str) {
+#   x <- str_extract_all(str, "\\[(\\w*)\\]")
+#   x <- gsub("\\[", "", x)
+#   x <- gsub("\\]", "", x)
+#   return(x)
+# }
+
 #' Start file server
 #' 
 #' ...
@@ -11,85 +18,36 @@ fileserv <- function(config) {
     stop("config is missing")
   }
   
-  # start shiny app
+  conf <- yaml.load_file(config)
+  
   runApp(
     list(
       ui = bootstrapPage(
-        h3("URL components"),
-        verbatimTextOutput("urlText"),
-       
-        h3("Parsed query string"),
-        verbatimTextOutput("queryText"),
-        
-        h3("Download data"),
-        downloadButton("csv", "csv"),
-        downloadButton("xlsx", "xlsx")
+        selectInput(
+          inputId = "query",
+          label = "Query:",
+          choices = names(conf)
+        ),
+        downloadButton("download", "Download data")
       ),
       
       server = function(input, output, session) {
+        cfg <- reactive({
+          conf[[input$query]]
+        })
         
-        output$csv <- downloadHandler(
-          filename = 'test.csv',
+        output$download <- downloadHandler(
+          filename = function() cfg()$output,
           content = function(con) {
-            write.csv2(data(), con)
-          }
-        )
-        
-        output$xlsx <- downloadHandler(
-          filename = 'test.xlsx',
-          content = function(con) {
-            temp <- paste0(tempfile(), ".xlsx")
-            on.exit(unlink(temp))
+            temp_file <- paste(tempfile(), cfg()$output, sep = "_")
+            on.exit(unlink(temp_file))
+            code <- paste(readLines(cfg()$file, warn = F), collapse = "\n")
+            eval(parse(text = code))(temp_file)
             
-            wb <- loadWorkbook(temp, create = TRUE)
-            createSheet(wb, name = "output")
-            writeWorksheet(wb, data(), sheet = "output")
-            saveWorkbook(wb)
-            
-            bytes <- readBin(temp, "raw", file.info(temp)$size)
+            bytes <- readBin(temp_file, "raw", file.info(temp_file)$size)
             writeBin(bytes, con)
           }
         )
-        
-        data <- reactive({
-          print(paste("Get data with query:", sql()))
-          
-          # TODO: GET DATA FROM DATABASE
-          data <- MASS::survey  # temp
-          
-          return(data)
-        })
-        
-        sql <- reactive({
-          
-          # get url query
-          query <- parseQueryString(session$clientData$url_search)
-          
-#         query <- sapply(query, function(x) {
-#           strsplit(x, ";")
-#         })
-          
-          # get local config
-          conf <- yaml.load_file(config)
-          
-          # get local sql
-          file <- conf[[query$q]]$file
-          sql <- paste(readLines(file, warn = F), collapse = "\n")
-          sql <- whisker.render(sql, query)
-          
-          return(sql)
-      })
-       
-        # Return the components of the URL in a string:
-        output$urlText <- renderText({
-          session$clientData$url_search
-        })
-       
-        # Parse the GET query string
-        output$queryText <- renderText({
-          str <- sql()
-          paste(str)
-        })
       }
     )
   )
