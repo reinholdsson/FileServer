@@ -2,7 +2,7 @@
 \alias{buildForm}
 \title{Build form}
 \usage{
-  buildForm(formList)
+  buildForm(formList, query)
 }
 \description{
   ...

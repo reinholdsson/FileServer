@@ -22,24 +22,37 @@ fileserv <- function(config) {
   runApp(
     list(
       ui = bootstrapPage(
-        selectInput(
-          inputId = "query",
-          label = "Query:",
-          choices = names(conf)
-        ),
+        uiOutput("fun"),
         uiOutput("form"),
         downloadButton("download", "Run")
       ),
       
       server = function(input, output, session) {
+
+        
+        query <- reactive({
+           parseQueryString(session$clientData$url_search)
+        })
+        
         cfg <- reactive({
-          conf[[input$query]]
+          if(!is.null(input$fun)) {
+            conf[[input$fun]]
+          }
+        })
+        
+        output$fun <- renderUI({
+            selectInput(
+            inputId = "fun",
+            label = "Function:",
+            choices = names(conf),
+            selected = query()$fun
+          )
         })
         
         output$form <- renderUI({
           form <- cfg()$form
           if (!is.null(form)) {
-            buildForm(yaml.load_file(form))
+            buildForm(yaml.load_file(form), query())
           } else {
             p("No form available")
           }
