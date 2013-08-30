@@ -31,6 +31,10 @@ Set default inputs within the url:
 http://localhost:8100/?fun=plot%20chart&title=Plot%203&subtitle=This%20is%20a%20subtitle
 ```
 
+## Todo
+
+- Add auto-submit through url (e.g. url...?submit=1)
+
 ## See also
 
 - [FastRWeb](http://www.rforge.net/FastRWeb/)

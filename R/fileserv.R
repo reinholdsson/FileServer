@@ -28,7 +28,6 @@ fileserv <- function(config) {
       ),
       
       server = function(input, output, session) {
-
         
         query <- reactive({
            parseQueryString(session$clientData$url_search)
