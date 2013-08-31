@@ -20,7 +20,7 @@ A FileServer primarily needs a config-file, e.g. `config.yml`. It should be an `
 
 Further explanation of the available arguments:
 
-- `file`: Path of the function file, which has a structure as follows:
+`file`: Path of the function file, which has a structure as follows:
 
     function(input, output) {
       ...
@@ -28,9 +28,9 @@ Further explanation of the available arguments:
 
 where `input` contain the user inputs from the form and `output` is the output file object.
 
-- `output`: Filename of the output.
+`output`: Filename of the output.
 
-- `form`: A form that is shown in front of the user, which makes it possible to send input values to the function. E.g.
+`form`: A form that is shown in front of the user, which makes it possible to send input values to the function. E.g.
 
     inputs:
     - inputId: title
