@@ -1,13 +1,12 @@
 Cars data:
-  desc: This is a description of mtcars dataset.
   file: functions/mtcars.r
   output: mtcars.xlsx
 Plot Chart:
-  desc: Generate a plot with custom input
   file: functions/plot.r
   output: plot.pdf
   form: forms/plot.yml
+  help: Please fill in all necessary details
 Survey data:
-  desc: This data frame contains the responses of 237 Statistics I students at the University of Adelaide to a number of questions.
   file: functions/survey.r
   output: survey.xlsx
+  readme: ../README.md

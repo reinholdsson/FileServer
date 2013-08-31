@@ -9,7 +9,8 @@ Description: ...
 License: GPLv3
 Depends:
     yaml,
-    shiny
+    shiny,
+    markdown
 Collate:
     'form.R'
     'FileServer.R'

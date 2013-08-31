@@ -2,7 +2,7 @@
 \alias{FileServer}
 \title{Start file server}
 \usage{
-  FileServer(config_file, title = "FileServer",
+  FileServer(config_file, title = "File Server",
     fun_label = "", button_label = "Run", ...)
 }
 \arguments{

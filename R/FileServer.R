@@ -20,7 +20,7 @@ eval_fun <- function(x, fun) if(!is.null(x)) fun(x) else NULL
 #' 
 #' @param config_file config file path
 #' @export
-FileServer <- function(config_file, title = "FileServer", fun_label = "", button_label = "Run", ...) {
+FileServer <- function(config_file, title = "File Server", fun_label = "", button_label = "Run", ...) {
   # change work dir until exit
   wd <- getwd()
   setwd(dirname(config_file))
@@ -29,12 +29,19 @@ FileServer <- function(config_file, title = "FileServer", fun_label = "", button
   
   runApp(
     list(
-      ui = bootstrapPage(
-        h1(title),
-        uiOutput("fun"),
-        uiOutput("desc"),
-        uiOutput("form"),
-        downloadButton("download", button_label)
+      ui = pageWithSidebar(
+        headerPanel(
+          title
+        ),
+        sidebarPanel(
+          uiOutput("fun"),
+          uiOutput("help"),
+          uiOutput("form"),
+          downloadButton("download", button_label)
+        ),
+        mainPanel(
+          uiOutput("readme")
+        )
       ),
       
       server = function(input, output, session) {
@@ -47,8 +54,12 @@ FileServer <- function(config_file, title = "FileServer", fun_label = "", button
           eval_fun(input$fun_input, function(x) config_list[[x]])
         })
         
-        output$desc <- renderUI({
-          eval_fun(config()$desc, helpText)
+        output$help <- renderUI({
+          eval_fun(config()$help, helpText)
+        })
+        
+        output$readme <- renderUI({
+          eval_fun(config()$readme, includeMarkdown)
         })
         
         output$fun <- renderUI({

@@ -38,6 +38,9 @@ where `input` contain the user inputs from the form and `output` is the output f
       - Plot 3
     What is the subtitle?:
 
+`help`: Help text under the select input
+
+`readme`: Readme file path (.md)
 
 ## Start file server
 
