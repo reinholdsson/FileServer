@@ -1,14 +1,13 @@
-mtcars:
-  title: MTCARS
-  description: This is a description of mtcars dataset.
+Cars data:
+  desc: This is a description of mtcars dataset.
   file: functions/mtcars.r
   output: mtcars.xlsx
-plot:
-  title: Plot Chart
+Plot Chart:
+  desc: Generate a plot with custom input
   file: functions/plot.r
   output: plot.pdf
   form: forms/plot.yml
-survey:
-  title: Survey Dataset
+Survey data:
+  desc: This data frame contains the responses of 237 Statistics I students at the University of Adelaide to a number of questions.
   file: functions/survey.r
   output: survey.xlsx

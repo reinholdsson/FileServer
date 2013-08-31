@@ -1,8 +1,8 @@
-get_choices <- function(config_list) {
-    res <- names(config_list)
-    names(res) <- sapply(config_list, function(x) x$title)
-    return(res)
-}
+# get_choices <- function(config_list) {
+#     res <- names(config_list)
+#     names(res) <- sapply(config_list, function(x) x$title)
+#     return(res)
+# }
 
 get_yaml <- function(path) {
   # check input file
@@ -55,7 +55,7 @@ FileServer <- function(config_file, title = "FileServer", fun_label = "", button
             selectInput(
             inputId = "fun_input",
             label = fun_label,
-            choices = get_choices(config_list),
+            choices = names(config_list),
             selected = query()$q
           )
         })
