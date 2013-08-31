@@ -1,6 +1,6 @@
 # R File Server
 
-**EXPERIMENTAL**
+Created and maintained by Thomas Reinholdsson <reinholdsson@gmail.com>
 
 ## Install
 
