@@ -2,11 +2,11 @@
 \alias{FileServer}
 \title{Start file server}
 \usage{
-  FileServer(config, title = "FileServer", fun_label = "",
-    button_label = "Run", ...)
+  FileServer(config_file, title = "FileServer",
+    fun_label = "", button_label = "Run", ...)
 }
 \arguments{
-  \item{config}{config file path}
+  \item{config_file}{config file path}
 }
 \description{
   ...

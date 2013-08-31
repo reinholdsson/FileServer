@@ -1,10 +1,14 @@
-mtcars dataset:
+mtcars:
+  title: MTCARS
+  description: This is a description of mtcars dataset.
   file: functions/mtcars.r
   output: mtcars.xlsx
-plot chart:
+plot:
+  title: Plot Chart
   file: functions/plot.r
   output: plot.pdf
   form: forms/plot.yml
-survey dataset:
+survey:
+  title: Survey Dataset
   file: functions/survey.r
   output: survey.xlsx

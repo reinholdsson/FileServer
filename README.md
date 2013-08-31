@@ -32,27 +32,23 @@ where `input` contain the user inputs from the form and `output` is the output f
 
 `form`: A form that is shown in front of the user, which makes it possible to send input values to the function. E.g.
 
-    inputs:
-    - inputId: title
-      label: Title
-      choices:
+    Title:
       - Plot 1
       - Plot 2
       - Plot 3
-    - inputId: subtitle
-      label: Subtitle
+    What is the subtitle?:
+
 
 ## Start file server
 
     library(FileServer)
     FileServer("config.yml")
 
-
 ##  REST API
 
 Set default values within the url:
 
-    http://localhost:8100/?fun=plot%20chart&title=Plot%203&subtitle=This%20is%20a%20subtitle
+    http://localhost:8100/?q=Plot%20Chart&Title=Plot%203
 
 - `TODO`: Add auto-submit through url (e.g. url...?download=1)
 

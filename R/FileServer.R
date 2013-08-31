@@ -1,28 +1,38 @@
+get_choices <- function(config_list) {
+    res <- names(config_list)
+    names(res) <- sapply(config_list, function(x) x$title)
+    return(res)
+}
+
+get_yaml <- function(path) {
+  # check input file
+  if (missing(path) || is.null(path)) {
+    stop("yaml is missing")
+  }
+  yaml.load_file(path)
+}
+
+eval_fun <- function(x, fun) if(!is.null(x)) fun(x) else NULL
+
 #' Start file server
 #' 
 #' ...
 #' 
-#' @param config config file path
+#' @param config_file config file path
 #' @export
-FileServer <- function(config, title = "FileServer", fun_label = "", button_label = "Run", ...) {
+FileServer <- function(config_file, title = "FileServer", fun_label = "", button_label = "Run", ...) {
   # change work dir until exit
   wd <- getwd()
-  setwd(dirname(config))
+  setwd(dirname(config_file))
   on.exit(setwd(wd))
-  config <- basename(config)
-  
-  # check input file
-  if (missing(config) || is.null(config)) {
-    stop("config is missing")
-  }
-  
-  conf <- yaml.load_file(config)
+  config_list <- get_yaml(basename(config_file))
   
   runApp(
     list(
       ui = bootstrapPage(
         h1(title),
         uiOutput("fun"),
+        uiOutput("desc"),
         uiOutput("form"),
         downloadButton("download", button_label)
       ),
@@ -33,34 +43,33 @@ FileServer <- function(config, title = "FileServer", fun_label = "", button_labe
            parseQueryString(session$clientData$url_search)
         })
         
-        cfg <- reactive({
-          if(!is.null(input$fun)) {
-            conf[[input$fun]]
-          }
+        config <- reactive({
+          eval_fun(input$fun_input, function(x) config_list[[x]])
+        })
+        
+        output$desc <- renderUI({
+          eval_fun(config()$desc, helpText)
         })
         
         output$fun <- renderUI({
             selectInput(
-            inputId = "fun",
+            inputId = "fun_input",
             label = fun_label,
-            choices = names(conf),
-            selected = query()$fun
+            choices = get_choices(config_list),
+            selected = query()$q
           )
         })
         
         output$form <- renderUI({
-          form <- cfg()$form
-          if (!is.null(form)) {
-            buildForm(yaml.load_file(form), query())
-          } else return()
+          eval_fun(config()$form, function(x) build_form(get_yaml(x), query()))
         })
         
         output$download <- downloadHandler(
-          filename = function() cfg()$output,
+          filename = function() config()$output,
           content = function(con) {
-            temp_file <- paste(tempfile(), cfg()$output, sep = "_")
+            temp_file <- paste(tempfile(), config()$output, sep = "_")
             on.exit(unlink(temp_file))
-            code <- paste(readLines(cfg()$file, warn = F), collapse = "\n")
+            code <- paste(readLines(config()$file, warn = F), collapse = "\n")
             eval(parse(text = code))(input = input, output = temp_file)
             bytes <- readBin(temp_file, "raw", file.info(temp_file)$size)
             writeBin(bytes, con)

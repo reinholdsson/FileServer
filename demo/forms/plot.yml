@@ -1,9 +1,5 @@
-inputs:
-- inputId: title
-  label: Title
-  choices:
+Title:
   - Plot 1
   - Plot 2
   - Plot 3
-- inputId: subtitle
-  label: Subtitle
+What is the subtitle?:

@@ -1,9 +1,3 @@
-.formLabels <- list(
-    inputs = "inputs",
-    inputId = "inputId",
-    label = "label",
-    choices = "choices"
-)
 
 listNodes <- function(lst) {
     sapply(lst, function(x) if (is.list(x)) names(x) else x)
@@ -14,20 +8,15 @@ listNodes <- function(lst) {
 #' ...
 #' 
 #' @export
-buildForm <- function(formList, query) {
-    sapply(formList[[.formLabels$inputs]], function(i) {
-        id <- i[[.formLabels$inputId]]
-        lbl <- i[[.formLabels$label]]
-        ch <- i[[.formLabels$choices]]
-        
-        if (is.null(id)) id <- lbl
-
-        if (is.null(ch)) {
-            textInput(id, lbl, query[[id]])
-        } else if (length(ch) <= 3) {
-            radioButtons(id, lbl, listNodes(ch), query[[id]])
+build_form <- function(inputs, query) {
+    sapply(names(inputs), function(i) {
+        choices <- inputs[[i]]
+        if (is.null(choices)) {
+            textInput(i, i, query[[i]])
+        } else if (length(choices) <= 3) {
+            radioButtons(i, i, listNodes(choices), query[[i]])
         } else {
-            selectInput(id, lbl, listNodes(ch), query[[id]])
+            selectInput(i, i, listNodes(choices), query[[i]])
         }
     })
 }
