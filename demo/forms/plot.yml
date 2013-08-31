@@ -1,9 +1,9 @@
 inputs:
 - inputId: title
-  label: Main title
+  label: Title
   choices:
   - Plot 1
   - Plot 2
   - Plot 3
 - inputId: subtitle
-  label: Sub title
+  label: Subtitle
