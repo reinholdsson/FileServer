@@ -4,11 +4,12 @@
 #' 
 #' @param config config file path
 #' @export
-fileserv <- function(config) {
+FileServer <- function(config, ...) {
   # change work dir until exit
   wd <- getwd()
   setwd(dirname(config))
   on.exit(setwd(wd))
+  config <- basename(config)
   
   # check input file
   if (missing(config) || is.null(config)) {
@@ -68,5 +69,5 @@ fileserv <- function(config) {
         )
       }
     )
-  )
+  , ...)
 }

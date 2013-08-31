@@ -2,6 +2,12 @@
 
 **EXPERIMENTAL**
 
+## Install
+
+```
+devtools::install_bitbucket("FileServer", "reinholdsson")
+```
+
 ## Example
 
 `config.yml`
@@ -22,8 +28,8 @@ survey dataset:
 start service
 
 ```
-library(fileserv)
-fileserv("config.yml")
+library(FileServer)
+FileServer("config.yml")
 ```
 
 Set default inputs within the url:

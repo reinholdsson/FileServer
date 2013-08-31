@@ -1,8 +1,8 @@
-\name{fileserv}
-\alias{fileserv}
+\name{FileServer}
+\alias{FileServer}
 \title{Start file server}
 \usage{
-  fileserv(config)
+  FileServer(config, ...)
 }
 \arguments{
   \item{config}{config file path}
