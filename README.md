@@ -42,18 +42,16 @@ where `input` contain the user inputs from the form and `output` is the output f
 
 `readme`: Readme file path (.md)
 
-## Start file server
+## How to use
 
     library(FileServer)
     FileServer("config.yml")
 
-##  REST API
-
-Set default values within the url:
+It also possible to define defaults by the url
 
     http://localhost:8100/?q=Plot%20Chart&Title=Plot%203
 
-or activate download through the url:
+and even to initiate a download
 
     http://localhost:8100/?q=Plot%20Chart&Title=Plot%203&download=1
 
