@@ -1,11 +1,7 @@
-# get_choices <- function(config_list) {
-#     res <- names(config_list)
-#     names(res) <- sapply(config_list, function(x) x$title)
-#     return(res)
-# }
-
+#' Read yaml file
+#' 
+#' Read a yaml file and return it as a list
 get_yaml <- function(path) {
-  # check input file
   if (missing(path) || is.null(path)) {
     stop("yaml is missing")
   }
@@ -19,6 +15,10 @@ eval_fun <- function(x, fun) if(!is.null(x)) fun(x) else NULL
 #' ...
 #' 
 #' @param config_file config file path
+#' @param title Page title
+#' @param fun_label Function's select input label
+#' @param button_label Download button label
+#' @param ... see runApp()
 #' @export
 FileServer <- function(config_file, title = "File Server", fun_label = "", button_label = "Run", ...) {
   # change work dir until exit
@@ -40,6 +40,13 @@ FileServer <- function(config_file, title = "File Server", fun_label = "", butto
           downloadButton("download", button_label)
         ),
         mainPanel(
+          tags$head(tags$script(HTML('
+            Shiny.addCustomMessageHandler("jsCode",
+              function(message) {
+                eval(message.value);
+              }
+            );
+          '))),
           uiOutput("readme")
         )
       ),
@@ -47,7 +54,7 @@ FileServer <- function(config_file, title = "File Server", fun_label = "", butto
       server = function(input, output, session) {
         
         query <- reactive({
-           parseQueryString(session$clientData$url_search)
+          query <- parseQueryString(session$clientData$url_search)
         })
         
         config <- reactive({
@@ -86,6 +93,18 @@ FileServer <- function(config_file, title = "File Server", fun_label = "", butto
             writeBin(bytes, con)
           }
         )
+        
+        # Initiate download automatically
+        # http://stackoverflow.com/questions/18541896
+        # Thanks jdharrison!
+        observe({
+          if(!is.null(query()$download)){
+            if(query()$download == 1){
+              jsinject <- "setTimeout(function(){window.open($('#download').attr('href'))}, 5000);"
+              session$sendCustomMessage(type = 'jsCode', list(value = jsinject))          
+            }
+          }
+        })
       }
     )
   , ...)

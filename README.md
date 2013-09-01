@@ -53,7 +53,9 @@ Set default values within the url:
 
     http://localhost:8100/?q=Plot%20Chart&Title=Plot%203
 
-- `TODO`: Add auto-submit through url (e.g. url...?download=1)
+or activate download through the url:
+
+    http://localhost:8100/?q=Plot%20Chart&Title=Plot%203&download=1
 
 ## See also
 
