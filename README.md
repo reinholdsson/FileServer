@@ -1,6 +1,6 @@
 # R File Server
 
-Created and maintained by Thomas Reinholdsson <reinholdsson@gmail.com>
+By Thomas Reinholdsson <reinholdsson@gmail.com>
 
 ## Install
 
@@ -38,7 +38,7 @@ where `input` contain the user inputs from the form and `output` is the output f
       - Plot 3
     What is the subtitle?:
 
-`help`: Help text under the select input
+`help`: Help text shown below the select input
 
 `readme`: Readme file path (.md)
 
