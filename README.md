@@ -4,7 +4,7 @@ Created and maintained by Thomas Reinholdsson <reinholdsson@gmail.com>
 
 ## Install
 
-    devtools::install_bitbucket("FileServer", "reinholdsson")
+    devtools::install_github("FileServer", "reinholdsson")
 
 ## Config
 
