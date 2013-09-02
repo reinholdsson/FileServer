@@ -57,5 +57,6 @@ and even to initiate a download
 
 ## See also
 
+- [OpenCPU](https://public.opencpu.org/)
 - [FastRWeb](http://www.rforge.net/FastRWeb/)
 - [Shiny](http://www.rstudio.com/shiny/)
